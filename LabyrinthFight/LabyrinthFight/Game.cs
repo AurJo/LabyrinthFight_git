@@ -16,7 +16,10 @@ namespace LabyrinthFight
 
         public Game()
         {
-            
+            this.listAccessoire = new List<Accessoire>();
+            this.listCombattant = new List<Combattant>();
+            this.accessoireFactory = new AccessoireFactory();
+            this.combattantFactory = new CombattantFactory();
         }
 
     }
