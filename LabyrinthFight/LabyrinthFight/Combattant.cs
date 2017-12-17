@@ -17,13 +17,13 @@ namespace LabyrinthFight
         private Queue<Case> queueVisite;
         private Queue<Case> nonPossible;
 
-        public Combattant(string nom,int vie, int capacite)
+        public Combattant(string nom,int vie, int capacite,int typeCaractere)
         {
             this.nom = nom;
             this.vie = vie;
             this.capacite = capacite;
             this.caractereFactory = new CaractereFactory();
-            this.caractere = this.caractereFactory.CreateCaractere();
+            this.caractere = this.caractereFactory.CreateCaractere(typeCaractere);
             this.queueVisite = new Queue<Case>();
             this.nonPossible = new Queue<Case>();
             this.listAccessoire = new List<Accessoire>();

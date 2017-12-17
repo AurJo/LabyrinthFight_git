@@ -9,13 +9,11 @@ namespace LabyrinthFight
     public class CaractereFactory
     {
 
-        public Caractere CreateCaractere()
+        public Caractere CreateCaractere(int typeCaractere)
         {
-            Random rand = new Random();
-            int aleatoire = rand.Next(0,2);
-            if(aleatoire == 0)
+            if(typeCaractere == 0)
                 return new Offensif();
-            if (aleatoire == 1)
+            if (typeCaractere == 1)
                 return new Defensif();
             return null;
         }

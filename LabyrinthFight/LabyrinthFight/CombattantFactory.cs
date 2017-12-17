@@ -8,9 +8,9 @@ namespace LabyrinthFight
 {
     public class CombattantFactory
     {
-        public Combattant CreateCombattant(string nom,int vie, int capacite)
+        public Combattant CreateCombattant(string nom, int vie, int capacite, int typeCaractere)
         {
-            Combattant combattant = new Combattant(nom,vie, capacite);
+            Combattant combattant = new Combattant(nom, vie, capacite, typeCaractere);
 
             return combattant;
         }

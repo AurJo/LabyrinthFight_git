@@ -42,7 +42,9 @@ namespace LabyrinthFight
                 return labyrintheInstance;
             }
         }
-        
+
+        public int NbrCaseLibre { get => nbrCaseLibre; set => nbrCaseLibre = value; }
+
         public void GenerationLabyrinthe(string fichierTxt)
         {
             StreamReader monStreamReader = new StreamReader(@fichierTxt);
