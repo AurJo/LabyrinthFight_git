@@ -15,6 +15,7 @@ namespace LabyrinthFight
 
         public override string ToString()
         {
+            Console.BackgroundColor = ConsoleColor.Yellow; 
             return "S"; 
         }
     }

@@ -133,16 +133,13 @@ namespace LabyrinthFight
 
         public void AfficherLabyrinthe()
         {
-            ConsoleColor currentBackground = Console.BackgroundColor;
-            ConsoleColor currentForeground = Console.ForegroundColor;
-
             int currentPos = 0; 
 
             while (currentPos < this.nbrColonne*this.nbrLigne)
             {
                 for (int i = 0; i < this.nbrColonne; i++)
                 {
-                    Console.Write(listCase[i]);
+                    Console.Write(listCase[currentPos]);
                     currentPos += 1;
 
                     //Originale couleur de console (au cas ou) 
@@ -150,9 +147,6 @@ namespace LabyrinthFight
                 }
                 Console.WriteLine();
             }
-
-             
-
         }
     }
 }
