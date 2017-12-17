@@ -42,8 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessoireFactory.cs" />
+    <Compile Include="Caractere.cs" />
+    <Compile Include="CaractereFactory.cs" />
+    <Compile Include="Case.cs" />
+    <Compile Include="CaseFactory.cs" />
+    <Compile Include="CombattantFactory.cs" />
+    <Compile Include="Defensif.cs" />
+    <Compile Include="Labyrinthe.cs" />
+    <Compile Include="Libre.cs" />
+    <Compile Include="Mur.cs" />
+    <Compile Include="MurHorizontal.cs" />
+    <Compile Include="MurVertical.cs" />
+    <Compile Include="Offensif.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sortie.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
