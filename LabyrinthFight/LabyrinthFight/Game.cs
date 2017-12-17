@@ -42,7 +42,7 @@ namespace LabyrinthFight
             for (int i = 0; i < nombreCombattant; i++)
             {
                 int typeCaractere = rand.Next(0, 2);
-                AjouterCombattant(Convert.ToString(i), vie, capacite, typeCaractere);
+                AjouterCombattant(Convert.ToString(Convert.ToChar(i + 65)), vie, capacite, typeCaractere);
             }
         }
 
