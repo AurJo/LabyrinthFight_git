@@ -8,5 +8,6 @@ namespace LabyrinthFight
 {
     public class Labyrinthe
     {
+        private CaseFactory caseFactory;
     }
 }
