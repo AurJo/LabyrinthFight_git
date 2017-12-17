@@ -14,6 +14,8 @@ namespace LabyrinthFight
         private AccessoireFactory accessoireFactory;
         private CombattantFactory combattantFactory;
 
+        public Labyrinthe Labyrinthe { get => labyrinthe; set => labyrinthe = value; }
+
         public Game()
         {
             this.labyrinthe = Labyrinthe.LabyrintheInstance;

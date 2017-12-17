@@ -15,7 +15,7 @@ namespace LabyrinthFight
 
         public override string ToString()
         {
-            return "|"; 
+            return "_"; 
         }
     }
 }
