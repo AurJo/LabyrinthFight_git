@@ -15,7 +15,7 @@ namespace LabyrinthFight
         private int vie;
         private int capacite;
         private Stack<Case> visite;
-        private Stack<Case> nonPossible;
+        private List<Case> nonPossible;
         private Case caseActuel;
 
         public Combattant(string nom, int vie, int capacite, int typeCaractere)
@@ -26,7 +26,7 @@ namespace LabyrinthFight
             this.caractereFactory = new CaractereFactory();
             this.caractere = this.caractereFactory.CreateCaractere(typeCaractere);
             this.visite = new Stack<Case>();
-            this.nonPossible = new Stack<Case>();
+            this.nonPossible = new List<Case>();
             this.listAccessoire = new List<Accessoire>();
         }
 
@@ -48,7 +48,7 @@ namespace LabyrinthFight
                             (this.caseActuel as Libre).Occupant = null;
                             this.caseActuel = pos;
                             (this.caseActuel as Libre).Occupant = this;
-                            
+                            this.visite.Push(this.caseActuel);
                         }
                     }
                     if ((pos as Libre).Occupant is Combattant)
