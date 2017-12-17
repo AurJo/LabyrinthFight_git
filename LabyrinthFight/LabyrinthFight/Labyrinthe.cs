@@ -24,6 +24,7 @@ namespace LabyrinthFight
         {
             this.listCase = new List<Case>();
             this.caseFactory = new CaseFactory();
+            this.listPositionLibre = new List<Case>();
         }
 
 
@@ -65,15 +66,16 @@ namespace LabyrinthFight
 
                 for (int i = 0; i < nbrColonne; i++)
                 {
-                    listCase.Add(this.caseFactory.CreatCase(temp[i], position + i));
-                    if (listCase[i] is Libre)
+                    Case caseAjoute = this.caseFactory.CreatCase(temp[i], position + i);
+                    listCase.Add(caseAjoute);
+                    if (caseAjoute is Libre)
                     {
                         nbrLibre += 1;
-                        listPositionLibre.Add(listCase[i]); 
+                        listPositionLibre.Add(caseAjoute); 
                     }
-                    if (listCase[i] is Sortie)
+                    if (caseAjoute is Sortie)
                     {
-                        this.sortie = (listCase[i] as Sortie);
+                        this.sortie = (caseAjoute as Sortie);
                     }
                 }
                 position += nbrColonne;

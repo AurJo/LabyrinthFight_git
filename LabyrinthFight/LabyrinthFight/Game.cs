@@ -8,14 +8,17 @@ namespace LabyrinthFight
 {
     public class Game
     {
+        private Labyrinthe labyrinthe;
         private List<Combattant> listCombattant;
         private List<Accessoire> listAccessoire;
         private AccessoireFactory accessoireFactory;
         private CombattantFactory combattantFactory;
-        
+
+        public Labyrinthe Labyrinthe { get => labyrinthe; set => labyrinthe = value; }
 
         public Game()
         {
+            this.labyrinthe = Labyrinthe.LabyrintheInstance;
             this.listAccessoire = new List<Accessoire>();
             this.listCombattant = new List<Combattant>();
             this.accessoireFactory = new AccessoireFactory();
@@ -31,7 +34,7 @@ namespace LabyrinthFight
         public void GenerationCombattant()
         {
             int pourcentageCombattant = Convert.ToInt32(Console.ReadLine());
-            int nombreCombattant = Labyrinthe.LabyrintheInstance.NbrCaseLibre / pourcentageCombattant + 1 ;
+            int nombreCombattant = this.labyrinthe.NbrCaseLibre / pourcentageCombattant + 1 ;
             int vie = Convert.ToInt32(Console.ReadLine());
             int capacite = Convert.ToInt32(Console.ReadLine());
 
@@ -52,7 +55,7 @@ namespace LabyrinthFight
         public void GenerationAccessoire()
         {
             int pourcentageAccessoire = Convert.ToInt32(Console.ReadLine());
-            int nombreAccessoire = Labyrinthe.LabyrintheInstance.NbrCaseLibre / pourcentageAccessoire + 1;
+            int nombreAccessoire = this.labyrinthe.NbrCaseLibre / pourcentageAccessoire + 1;
 
             Random rand = new Random();
 

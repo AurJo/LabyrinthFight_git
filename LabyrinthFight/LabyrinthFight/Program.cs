@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LabyrinthFight
@@ -24,9 +25,9 @@ namespace LabyrinthFight
         {
             Game game = new Game();
 
-            Labyrinthe.LabyrintheInstance.GenerationLabyrinthe("laby.txt");
+            game.Labyrinthe.GenerationLabyrinthe("laby.txt");
 
-            Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+            game.Labyrinthe.AfficherLabyrinthe();
             Console.ReadKey();
 
             Combattant combattant1 = new Combattant("A", 100, 10, 0);
@@ -37,35 +38,41 @@ namespace LabyrinthFight
 
             Accessoire accessoire2 = new Couteau();
 
-            (Labyrinthe.LabyrintheInstance.ListCase[17] as Libre).Occupant = combattant1;
-            (Labyrinthe.LabyrintheInstance.ListCase[49] as Libre).Occupant = combattant2;
-            (Labyrinthe.LabyrintheInstance.ListCase[20] as Libre).Occupant = accessoire1;
-            (Labyrinthe.LabyrintheInstance.ListCase[51] as Libre).Occupant = accessoire2;
+            (game.Labyrinthe.ListCase[17] as Libre).Occupant = combattant1;
+            (game.Labyrinthe.ListCase[49] as Libre).Occupant = combattant2;
+            (game.Labyrinthe.ListCase[20] as Libre).Occupant = accessoire1;
+            (game.Labyrinthe.ListCase[51] as Libre).Occupant = accessoire2;
 
-            Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+            game.Labyrinthe.AfficherLabyrinthe();
         }
 
         static void Test3()
         {
             Game game = new Game();
 
-            Labyrinthe.LabyrintheInstance.GenerationLabyrinthe("laby.txt");
+            game.Labyrinthe.GenerationLabyrinthe("laby.txt");
 
-            Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+            game.Labyrinthe.AfficherLabyrinthe();
             Console.ReadKey();
+            Console.Clear();
 
             Combattant combattant1 = new Combattant("A", 100, 10, 0);
 
-            (Labyrinthe.LabyrintheInstance.ListCase[17] as Libre).Occupant = combattant1;
+            (game.Labyrinthe.ListCase[21] as Libre).Occupant = combattant1;
+            combattant1.CaseActuel = game.Labyrinthe.ListCase[21];
 
-            Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+            game.Labyrinthe.AfficherLabyrinthe();
+            Console.ReadKey();
             Console.Clear();
 
-            while(Labyrinthe.LabyrintheInstance.Sortie.Occupant == null)
+            Thread thCombattant1 = new Thread(combattant1.ParcourirLabyrinthe);
+            thCombattant1.Start();
+
+            while(game.Labyrinthe.Sortie.Occupant == null)
             {
-                combattant1.ParcourirLabyrinthe();
                 Console.Clear();
-                Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+                game.Labyrinthe.AfficherLabyrinthe();
+                Thread.Sleep(100);
             }
         }
 

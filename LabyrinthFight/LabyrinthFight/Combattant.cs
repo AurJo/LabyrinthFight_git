@@ -60,17 +60,17 @@ namespace LabyrinthFight
             {
                 if (caseProchaine is Libre)
                 {
+                    this.visite.Push(this.caseActuel);
                     (this.caseActuel as Libre).Occupant = null;
                     this.caseActuel = caseProchaine;
                     (this.caseActuel as Libre).Occupant = this;
-                    this.visite.Push(this.caseActuel);
                 }
                 if (caseProchaine is Sortie)
                 {
+                    this.visite.Push(this.caseActuel);
                     (this.caseActuel as Sortie).Occupant = null;
                     this.caseActuel = caseProchaine;
                     (this.caseActuel as Sortie).Occupant = this;
-                    this.visite.Push(this.caseActuel);
                 }
                 return true;
             }
@@ -122,9 +122,12 @@ namespace LabyrinthFight
             {
                 if ((pos as Libre).Occupant == null)
                 {
-                    if (nonPossible.Contains(pos) == false && pos != visite.ElementAt(visite.Count - 2))
+                    if (nonPossible.Contains(pos) == false)
                     {
-                        return Bouge(pos);
+                        if(visite.Count > 0 && pos != visite.ElementAt(visite.Count - 1))
+                            return Bouge(pos);
+                        if (visite.Count == 0)
+                            return Bouge(pos);
                     }
                 }
                 if ((pos as Libre).Occupant is Combattant)
@@ -144,7 +147,7 @@ namespace LabyrinthFight
                             return Bouge(pos);
                         }
                     }
-                    if (pos == visite.ElementAt(visite.Count - 2))
+                    if (visite.Count > 0 && pos == visite.ElementAt(visite.Count - 1))
                     {
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
@@ -177,13 +180,14 @@ namespace LabyrinthFight
 
             while (tailleListePossibilite != 0 && bouger == false)
             {
-                int indexPos = rand.Next(0, tailleListePossibilite + 1);
+                int indexPos = rand.Next(0, tailleListePossibilite);
                 bouger = ChoixAction(listePossibilite[indexPos]);
                 listePossibilite.RemoveAt(indexPos);
+                tailleListePossibilite = listePossibilite.Count;
             }
             if (bouger == false)
             {
-                Case casePrecedente = visite.ElementAt(visite.Count - 2);
+                Case casePrecedente = visite.ElementAt(visite.Count - 1);
                 bouger = RetourArriere(casePrecedente);
             }
             return bouger;
