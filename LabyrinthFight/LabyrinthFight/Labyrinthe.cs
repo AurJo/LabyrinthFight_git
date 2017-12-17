@@ -38,7 +38,8 @@ namespace LabyrinthFight
         public void GenerationLabyrinthe(string fichierTxt)
         {
             StreamReader monStreamReader = new StreamReader(@fichierTxt);
-            string ligne = monStreamReader.ReadLine(); 
+            string ligne = monStreamReader.ReadLine();
+            int position = 1; 
 
             while (ligne != null)
             {
