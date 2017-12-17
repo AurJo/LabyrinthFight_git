@@ -12,5 +12,6 @@ namespace LabyrinthFight
         protected ConsoleColor color;
 
         public ConsoleColor Color { get => color; set => color = value; }
+        public int Capacite { get => capacite; set => capacite = value; }
     }
 }
