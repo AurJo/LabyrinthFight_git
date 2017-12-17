@@ -10,6 +10,6 @@ namespace LabyrinthFight
     {
         protected int position;
 
-        
+        public int Position { get => position; set => position = value; }
     }
 }

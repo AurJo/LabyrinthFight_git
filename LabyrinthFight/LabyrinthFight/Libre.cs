@@ -14,5 +14,7 @@ namespace LabyrinthFight
         {
             this.position = position;
         }
+
+        public Occupant Occupant { get => occupant; set => occupant = value; }
     }
 }
