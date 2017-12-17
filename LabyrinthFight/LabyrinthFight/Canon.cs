@@ -11,6 +11,7 @@ namespace LabyrinthFight
         public Canon()
         {
             this.capacite = 9;
+            this.color = ConsoleColor.Yellow; 
         }
     }
 }

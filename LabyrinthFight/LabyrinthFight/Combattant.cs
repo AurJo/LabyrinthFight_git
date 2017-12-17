@@ -137,7 +137,9 @@ namespace LabyrinthFight
 
         public override string ToString()
         {
-            return nom;
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Black; 
+            return nom; 
         }
 
 
