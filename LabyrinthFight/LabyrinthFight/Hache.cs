@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Hache : Accessoire
     {
+        public Hache()
+        {
+            this.capacite = 3;
+        }
     }
 }

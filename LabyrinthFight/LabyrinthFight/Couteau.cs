@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Couteau : Accessoire
     {
+        public Couteau()
+        {
+            this.capacite = 3;
+        }
     }
 }

@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Canon : Accessoire
     {
+        public Canon()
+        {
+            this.capacite = 9;
+        }
     }
 }

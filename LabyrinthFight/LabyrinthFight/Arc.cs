@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Arc : Accessoire
     {
+        public Arc()
+        {
+            this.capacite = 6;
+        }
     }
 }

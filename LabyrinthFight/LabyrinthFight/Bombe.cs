@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Bombe : Accessoire
     {
+        public Bombe()
+        {
+            this.capacite = 10;
+        }
     }
 }

@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Epee : Accessoire
     {
+        public Epee()
+        {
+            this.capacite = 5;
+        }
     }
 }

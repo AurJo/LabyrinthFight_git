@@ -11,5 +11,9 @@ namespace LabyrinthFight
         private List<Accessoire> listAccessoire;
         private CaractereFactory caractereFactory;
         private Caractere caractere;
+        private int vie;
+        private int capacite;
+        private Queue<Case> queueVisite;
+        private Queue<Case> nonPossible;
     }
 }

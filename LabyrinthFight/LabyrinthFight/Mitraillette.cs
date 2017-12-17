@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Mitraillette : Accessoire
     {
+        public Mitraillette()
+        {
+            this.capacite = 8;
+        }
     }
 }

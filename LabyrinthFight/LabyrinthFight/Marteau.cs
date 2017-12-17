@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Marteau : Accessoire
     {
+        public Marteau()
+        {
+            this.capacite = 2;
+        }
     }
 }
