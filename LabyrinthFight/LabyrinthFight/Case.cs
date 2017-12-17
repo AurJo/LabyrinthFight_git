@@ -8,6 +8,8 @@ namespace LabyrinthFight
 {
     public abstract class Case
     {
-        private int position; 
+        protected int position;
+
+        
     }
 }

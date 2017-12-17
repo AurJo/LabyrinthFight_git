@@ -9,5 +9,10 @@ namespace LabyrinthFight
     public class Libre : Case 
     {
         private Occupant occupant;
+
+        public Libre(int position)
+        {
+            this.position = position;
+        }
     }
 }
