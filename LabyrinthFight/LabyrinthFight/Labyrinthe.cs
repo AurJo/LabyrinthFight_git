@@ -16,7 +16,7 @@ namespace LabyrinthFight
         private int nbrColonne;
         private int nbrLigne;
         private int nbrCaseLibre;
-        private List<int> listPositionLibre; 
+        private List<Case> listPositionLibre; 
 
 
         private Labyrinthe()
@@ -67,7 +67,7 @@ namespace LabyrinthFight
                     if (listCase[i] is Libre)
                     {
                         nbrLibre += 1;
-                        listPositionLibre.Add(position + i); 
+                        listPositionLibre.Add(listCase[i]); 
                     }
                 }
                 position += nbrColonne;

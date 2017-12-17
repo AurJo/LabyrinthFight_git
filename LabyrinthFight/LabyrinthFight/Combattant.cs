@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LabyrinthFight
@@ -40,7 +41,7 @@ namespace LabyrinthFight
 
         public void CalculeCapacite()
         {
-            for(int i = 0; i < this.listAccessoire.Count; i++)
+            for (int i = 0; i < this.listAccessoire.Count; i++)
             {
                 this.capacite += this.listAccessoire[i].Capacite;
             }
@@ -57,11 +58,35 @@ namespace LabyrinthFight
         {
             try
             {
-                (this.caseActuel as Libre).Occupant = null;
-                this.caseActuel = caseProchaine;
-                (this.caseActuel as Libre).Occupant = this;
-                this.visite.Push(this.caseActuel);
+                if (caseProchaine is Libre)
+                {
+                    (this.caseActuel as Libre).Occupant = null;
+                    this.caseActuel = caseProchaine;
+                    (this.caseActuel as Libre).Occupant = this;
+                    this.visite.Push(this.caseActuel);
+                }
+                if (caseProchaine is Sortie)
+                {
+                    (this.caseActuel as Sortie).Occupant = null;
+                    this.caseActuel = caseProchaine;
+                    (this.caseActuel as Sortie).Occupant = this;
+                    this.visite.Push(this.caseActuel);
+                }
                 return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RetourArriere(Case pos)
+        {
+            try
+            {
+                visite.Pop();
+                visite.Pop();
+                return Bouge(pos);
             }
             catch
             {
@@ -71,8 +96,23 @@ namespace LabyrinthFight
 
         public bool Combat(Combattant adversaireAttaque)
         {
-            adversaireAttaque.Vie -= this.capacite;
+            try
+            {
+                adversaireAttaque.Vie -= this.capacite;
+                listAccessoire.Last().Capacite--;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
+        public bool StrategieDeplacement()
+        {
+            Random rand = new Random();
+            if (rand.Next(0, 2) == 1)
+                return true;
             return false;
         }
 
@@ -82,7 +122,7 @@ namespace LabyrinthFight
             {
                 if ((pos as Libre).Occupant == null)
                 {
-                    if (nonPossible.Contains(pos) == false)
+                    if (nonPossible.Contains(pos) == false && pos != visite.ElementAt(visite.Count - 2))
                     {
                         return Bouge(pos);
                     }
@@ -91,8 +131,7 @@ namespace LabyrinthFight
                 {
                     if (this.caractere is Offensif) // && ((pos as Libre).Occupant as Combattant).caractere is Offensif)
                     {
-                        // combat
-                        // bouge
+                        return Combat((pos as Libre).Occupant as Combattant);
                     }
                 }
                 if ((pos as Libre).Occupant is Accessoire)
@@ -100,12 +139,18 @@ namespace LabyrinthFight
                     if (nonPossible.Contains(pos))
                     {
                         // Strategie de déplacement sur une case sans possibilités
-                        // Si oui : add dans la liste visité
+                        if (StrategieDeplacement())
+                        {
+                            return Bouge(pos);
+                        }
                     }
-                    if (pos == visite.ElementAt(visite.Count - 1))
+                    if (pos == visite.ElementAt(visite.Count - 2))
                     {
                         // Strategie de déplacement sur une case sans possibilités
-                        // Si oui : enlève la dernière case visité
+                        if (StrategieDeplacement())
+                        {
+                            return RetourArriere(pos);
+                        }
                     }
                     else
                     {
@@ -114,12 +159,16 @@ namespace LabyrinthFight
                     }
                 }
             }
+            if (pos is Sortie)
+            {
+                return Bouge(pos);
+            }
             return false;
         }
 
-        public bool ChoixPossibilite(Labyrinthe labyrinthe)
+        public bool ChoixPossibilite()
         {
-            List<Case> listePossibilite = labyrinthe.RetournePossibilites(caseActuel);
+            List<Case> listePossibilite = Labyrinthe.LabyrintheInstance.RetournePossibilites(this.caseActuel);
 
             Random rand = new Random();
 
@@ -132,13 +181,31 @@ namespace LabyrinthFight
                 bouger = ChoixAction(listePossibilite[indexPos]);
                 listePossibilite.RemoveAt(indexPos);
             }
+            if (bouger == false)
+            {
+                Case casePrecedente = visite.ElementAt(visite.Count - 2);
+                bouger = RetourArriere(casePrecedente);
+            }
             return bouger;
+        }
+
+        public void ParcourirLabyrinthe()
+        {
+            while (this.vie > 0 || this.caseActuel is Sortie)
+            {
+                ChoixPossibilite();
+                Thread.Sleep(500);
+            }
+            if (this.vie <= 0)
+            {
+                (this.caseActuel as Libre).Occupant = null;
+            }
         }
 
 
         public override string ToString()
         {
-            return nom; 
+            return nom;
         }
 
 
