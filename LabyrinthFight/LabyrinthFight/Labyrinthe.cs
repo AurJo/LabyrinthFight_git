@@ -3,46 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO; 
+using System.IO;
 
 namespace LabyrinthFight
 {
     public class Labyrinthe
     {
-        private static Labyrinthe labyrinthe;
+        private static Labyrinthe labyrintheInstance;
         private CaseFactory caseFactory;
         private List<Case> listCase;
-        static object instanceLock = new object(); 
+        static object instanceLock = new object();
+
 
         private Labyrinthe()
         {
             this.listCase = new List<Case>();
-            this.caseFactory = new CaseFactory(); 
+            this.caseFactory = new CaseFactory();
         }
 
-        public static Labyrinthe GetLabyrinthe()
+
+        public static Labyrinthe LabyrintheInstance
         {
-            if (labyrinthe == null)
+            get
             {
-                lock(instanceLock)
+                if (labyrintheInstance == null)
                 {
-                    if (labyrinthe == null)
+                    lock (instanceLock)
                     {
-                        labyrinthe = new Labyrinthe();
+                        if (labyrintheInstance == null)
+                        {
+                            labyrintheInstance = new Labyrinthe();
+                        }
                     }
                 }
+                return labyrintheInstance;
             }
-            return labyrinthe; 
         }
-
+        
         public void GenerationLabyrinthe(string fichierTxt)
         {
             StreamReader monStreamReader = new StreamReader(@fichierTxt);
-            string ligne = monStreamReader.ReadLine(); 
+            string ligne = monStreamReader.ReadLine();
 
             while (ligne != null)
             {
-                string[] temp = ligne.Split(';'); 
+                string[] temp = ligne.Split(';');
 
             }
         }
@@ -50,6 +55,6 @@ namespace LabyrinthFight
 
     }
 
-    
+
 
 }
