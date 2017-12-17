@@ -16,6 +16,7 @@ namespace LabyrinthFight
         private int nbrColonne;
         private int nbrLigne;
         private int nbrCaseLibre;
+        private Sortie sortie;
         private List<Case> listPositionLibre; 
 
 
@@ -46,6 +47,7 @@ namespace LabyrinthFight
 
         public int NbrCaseLibre { get => nbrCaseLibre; set => nbrCaseLibre = value; }
         public List<Case> ListCase { get => listCase; set => listCase = value; }
+        public Sortie Sortie { get => sortie; set => sortie = value; }
 
         public void GenerationLabyrinthe(string fichierTxt)
         {
@@ -68,6 +70,10 @@ namespace LabyrinthFight
                     {
                         nbrLibre += 1;
                         listPositionLibre.Add(listCase[i]); 
+                    }
+                    if (listCase[i] is Sortie)
+                    {
+                        this.sortie = (listCase[i] as Sortie);
                     }
                 }
                 position += nbrColonne;
