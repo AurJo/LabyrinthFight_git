@@ -8,6 +8,13 @@ namespace LabyrinthFight
 {
     public class Game
     {
+        private Labyrinthe labyrinthe;
+        private List<Combattant> listCombattant;
+        private List<Accessoire> listAccessoire;
+        private AccessoireFactory accessoireFactory;
+        private CombattantFactory combattantFactory;
+
+
 
     }
 }

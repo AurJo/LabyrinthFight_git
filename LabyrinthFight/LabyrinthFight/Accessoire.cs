@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabyrinthFight
 {
-    public class Accessoire : Occupant
+    public abstract class Accessoire : Occupant
     {
     }
 }

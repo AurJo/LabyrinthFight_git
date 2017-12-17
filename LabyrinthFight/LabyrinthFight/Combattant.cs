@@ -8,5 +8,8 @@ namespace LabyrinthFight
 {
     public class Combattant : Occupant
     {
+        private List<Accessoire> listAccessoire;
+        private CaractereFactory caractereFactory;
+        private Caractere caractere;
     }
 }

@@ -8,5 +8,6 @@ namespace LabyrinthFight
 {
     public class Libre : Case 
     {
+        private Occupant occupant;
     }
 }
