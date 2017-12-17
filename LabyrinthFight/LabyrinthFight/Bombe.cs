@@ -11,6 +11,7 @@ namespace LabyrinthFight
         public Bombe()
         {
             this.capacite = 10;
+            this.color = ConsoleColor.Cyan; 
         }
     }
 }

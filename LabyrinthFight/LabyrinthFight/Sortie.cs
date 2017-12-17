@@ -12,5 +12,10 @@ namespace LabyrinthFight
         {
             this.position = position;
         }
+
+        public override string ToString()
+        {
+            return "S"; 
+        }
     }
 }

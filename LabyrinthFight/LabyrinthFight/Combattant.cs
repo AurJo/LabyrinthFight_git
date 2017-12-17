@@ -31,8 +31,7 @@ namespace LabyrinthFight
         }
 
         public Case CaseActuel { get => caseActuel; set => caseActuel = value; }
-
-
+        public string Nom { get => nom; set => nom = value; }
 
         public void Mouvement(Labyrinthe labyrinthe)
         {
@@ -55,6 +54,11 @@ namespace LabyrinthFight
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return nom; 
         }
 
 
