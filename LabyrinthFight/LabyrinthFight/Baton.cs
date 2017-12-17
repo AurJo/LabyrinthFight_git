@@ -11,7 +11,7 @@ namespace LabyrinthFight
         public Baton()
         {
             this.capacite = 1;
-            this.color = ConsoleColor.Blue; 
+            this.color = ConsoleColor.DarkBlue; 
         }
 
        

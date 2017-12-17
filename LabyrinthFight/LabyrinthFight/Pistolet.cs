@@ -11,6 +11,7 @@ namespace LabyrinthFight
         public Pistolet()
         {
             this.capacite = 7;
+            this.color = ConsoleColor.Cyan; 
         }
     }
 }

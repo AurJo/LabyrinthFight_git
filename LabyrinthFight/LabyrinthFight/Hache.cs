@@ -10,7 +10,8 @@ namespace LabyrinthFight
     {
         public Hache()
         {
-            this.capacite = 3;
+            this.capacite = 4;
+            this.color = ConsoleColor.DarkYellow; 
         }
     }
 }
