@@ -14,7 +14,7 @@ namespace LabyrinthFight
         private Caractere caractere;
         private int vie;
         private int capacite;
-        private Stack<Case> queueVisite;
+        private Stack<Case> visite;
         private Stack<Case> nonPossible;
         private Case caseActuel;
 
@@ -25,7 +25,7 @@ namespace LabyrinthFight
             this.capacite = capacite;
             this.caractereFactory = new CaractereFactory();
             this.caractere = this.caractereFactory.CreateCaractere(typeCaractere);
-            this.queueVisite = new Stack<Case>();
+            this.visite = new Stack<Case>();
             this.nonPossible = new Stack<Case>();
             this.listAccessoire = new List<Accessoire>();
         }
@@ -48,6 +48,7 @@ namespace LabyrinthFight
                             (this.caseActuel as Libre).Occupant = null;
                             this.caseActuel = pos;
                             (this.caseActuel as Libre).Occupant = this;
+                            
                         }
                     }
                     if ((pos as Libre).Occupant is Combattant)
@@ -65,7 +66,7 @@ namespace LabyrinthFight
                             // Strategie de déplacement sur une case sans possibilités
                             // Si oui : add dans la liste visité
                         }
-                        if (pos == queueVisite.ElementAt(queueVisite.Count - 1))
+                        if (pos == visite.ElementAt(visite.Count - 1))
                         {
                             // Strategie de déplacement sur une case sans possibilités
                             // Si oui : enlève la dernière case visité
