@@ -20,7 +20,7 @@ namespace LabyrinthFight
             this.caseFactory = new CaseFactory(); 
         }
 
-        public Labyrinthe GetLabyrinthe()
+        public static Labyrinthe GetLabyrinthe()
         {
             if (labyrinthe == null)
             {
@@ -39,6 +39,12 @@ namespace LabyrinthFight
         {
             StreamReader monStreamReader = new StreamReader(@fichierTxt);
             string ligne = monStreamReader.ReadLine(); 
+
+            while (ligne != null)
+            {
+                string[] temp = ligne.Split(';'); 
+
+            }
         }
 
 
