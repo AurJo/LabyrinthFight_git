@@ -68,7 +68,7 @@ namespace LabyrinthFight
                 if (caseProchaine is Sortie)
                 {
                     this.visite.Push(this.caseActuel);
-                    (this.caseActuel as Sortie).Occupant = null;
+                    (this.caseActuel as Libre).Occupant = null;
                     this.caseActuel = caseProchaine;
                     (this.caseActuel as Sortie).Occupant = this;
                 }
@@ -85,8 +85,10 @@ namespace LabyrinthFight
             try
             {
                 visite.Pop();
-                visite.Pop();
-                return Bouge(pos);
+                (this.caseActuel as Libre).Occupant = null;
+                this.caseActuel = pos;
+                (this.caseActuel as Libre).Occupant = this;
+                return true;
             }
             catch
             {
@@ -124,7 +126,7 @@ namespace LabyrinthFight
                 {
                     if (nonPossible.Contains(pos) == false)
                     {
-                        if(visite.Count > 0 && pos != visite.ElementAt(visite.Count - 1))
+                        if(visite.Count > 0 && pos != visite.First())
                             return Bouge(pos);
                         if (visite.Count == 0)
                             return Bouge(pos);
@@ -147,7 +149,7 @@ namespace LabyrinthFight
                             return Bouge(pos);
                         }
                     }
-                    if (visite.Count > 0 && pos == visite.ElementAt(visite.Count - 1))
+                    if (visite.Count > 0 && pos == visite.First())
                     {
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
@@ -187,18 +189,20 @@ namespace LabyrinthFight
             }
             if (bouger == false)
             {
-                Case casePrecedente = visite.ElementAt(visite.Count - 1);
-                bouger = RetourArriere(casePrecedente);
+                nonPossible.Add(caseActuel);
+                bouger = RetourArriere(visite.First());
             }
             return bouger;
         }
 
         public void ParcourirLabyrinthe()
         {
-            while (this.vie > 0 || this.caseActuel is Sortie)
+            while (this.vie > 0 && (this.caseActuel is Sortie) == false)
             {
                 ChoixPossibilite();
-                Thread.Sleep(500);
+                Console.Clear();
+                Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
+                Console.ReadKey();
             }
             if (this.vie <= 0)
             {

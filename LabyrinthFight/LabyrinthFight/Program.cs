@@ -65,7 +65,9 @@ namespace LabyrinthFight
             Console.ReadKey();
             Console.Clear();
 
-            Thread thCombattant1 = new Thread(combattant1.ParcourirLabyrinthe);
+            combattant1.ParcourirLabyrinthe();
+
+            /*Thread thCombattant1 = new Thread(combattant1.ParcourirLabyrinthe);
             thCombattant1.Start();
 
             while(game.Labyrinthe.Sortie.Occupant == null)
@@ -73,7 +75,7 @@ namespace LabyrinthFight
                 Console.Clear();
                 game.Labyrinthe.AfficherLabyrinthe();
                 Thread.Sleep(100);
-            }
+            }*/
         }
 
         static void Main(string[] args)

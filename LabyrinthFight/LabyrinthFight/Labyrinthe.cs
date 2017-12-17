@@ -132,7 +132,7 @@ namespace LabyrinthFight
 
         public Case Est(Case caseActuel)
         {
-            int positionEst = caseActuel.Position - 1;
+            int positionEst = caseActuel.Position + 1;
             if (positionEst <= this.nbrColonne * this.nbrLigne && positionEst % this.nbrColonne != 1)
             {
                 return this.listCase.ElementAt(positionEst - 1);
