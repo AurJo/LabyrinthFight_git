@@ -16,8 +16,9 @@ namespace LabyrinthFight
         private int capacite;
         private Queue<Case> queueVisite;
         private Queue<Case> nonPossible;
+        private Case caseActuel;
 
-        public Combattant(string nom,int vie, int capacite,int typeCaractere)
+        public Combattant(string nom, int vie, int capacite, int typeCaractere)
         {
             this.nom = nom;
             this.vie = vie;
@@ -28,5 +29,34 @@ namespace LabyrinthFight
             this.nonPossible = new Queue<Case>();
             this.listAccessoire = new List<Accessoire>();
         }
+
+        public Case CaseActuel { get => caseActuel; set => caseActuel = value; }
+
+
+
+        public void Mouvement(Labyrinthe labyrinthe)
+        {
+            List<Case> possibilites = labyrinthe.RetournePossibilites(caseActuel);
+
+            foreach (Case pos in possibilites)
+            {
+                if (pos is Libre)
+                {
+                    if ((pos as Libre).Occupant is Accessoire)
+                    {
+                        if (nonPossible.Contains(pos))
+                        {
+
+                        }
+                        if (pos == queueVisite.ElementAt(queueVisite.Count - 1))
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
