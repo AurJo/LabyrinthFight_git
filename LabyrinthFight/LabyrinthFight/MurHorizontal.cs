@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class MurHorizontal : Mur
     {
+        public MurHorizontal(int position)
+        {
+            this.position = position;
+        }
     }
 }

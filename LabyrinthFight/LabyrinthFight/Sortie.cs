@@ -8,5 +8,9 @@ namespace LabyrinthFight
 {
     public class Sortie : Case
     {
+        public Sortie(int position)
+        {
+            this.position = position;
+        }
     }
 }
