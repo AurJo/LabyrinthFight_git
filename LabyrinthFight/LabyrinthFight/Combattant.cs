@@ -72,6 +72,7 @@ namespace LabyrinthFight
         public bool Combat(Combattant adversaireAttaque)
         {
             adversaireAttaque.Vie -= this.capacite;
+
             return false;
         }
 
