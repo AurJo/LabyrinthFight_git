@@ -7,12 +7,12 @@ using System.IO;
 
 namespace LabyrinthFight
 {
-    public class Labyrinthe
+    public sealed class Labyrinthe
     {
         private static Labyrinthe labyrintheInstance;
         private CaseFactory caseFactory;
         private List<Case> listCase;
-        static object instanceLock = new object();
+        static readonly object instanceLock = new object();
 
 
         private Labyrinthe()
