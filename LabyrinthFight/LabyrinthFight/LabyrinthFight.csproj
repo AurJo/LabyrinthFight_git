@@ -42,6 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accessoire.cs" />
+    <Compile Include="Arc.cs" />
+    <Compile Include="Baton.cs" />
+    <Compile Include="Bombe.cs" />
+    <Compile Include="Canon.cs" />
+    <Compile Include="Combattant.cs" />
+    <Compile Include="Couteau.cs" />
+    <Compile Include="Epee.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Hache.cs" />
+    <Compile Include="Marteau.cs" />
+    <Compile Include="Mitraillette.cs" />
+    <Compile Include="Occupant.cs" />
+    <Compile Include="Pistolet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
