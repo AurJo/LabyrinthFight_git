@@ -8,8 +8,19 @@ namespace LabyrinthFight
 {
     class Program
     {
+
+        static void Test1()
+        {
+            Labyrinthe labyrinthe = Labyrinthe.LabyrintheInstance;
+
+            labyrinthe.GenerationLabyrinthe("laby.txt");
+
+            labyrinthe.AfficherLabyrinthe();
+        }
         static void Main(string[] args)
         {
+            Test1();
+            Console.ReadKey();
         }
     }
 }

@@ -23,19 +23,18 @@ namespace LabyrinthFight
             {
                 if (occupant is Combattant)
                 {
+                    Console.BackgroundColor = ConsoleColor.Red; 
                     return (occupant as Combattant).Nom;  
                 }
                 if (occupant is Accessoire)
                 {
                     Console.ForegroundColor = (occupant as Accessoire).Color;
-                    Console.Write("o"); 
+                    return "o" ; 
                 }
-                return " ";
             }
-            else
-            {
-                return " "; 
-            }
+
+            return " "; 
+            
         }
     }
 
