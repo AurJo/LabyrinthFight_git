@@ -9,5 +9,6 @@ namespace LabyrinthFight
     public class Labyrinthe
     {
         private CaseFactory caseFactory;
+        private List<Case> listCase;
     }
 }
