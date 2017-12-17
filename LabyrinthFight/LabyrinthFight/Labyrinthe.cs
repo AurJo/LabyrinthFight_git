@@ -13,6 +13,9 @@ namespace LabyrinthFight
         private CaseFactory caseFactory;
         private List<Case> listCase;
         static object instanceLock = new object();
+        private int nbrColonne;
+        private int nbrLigne;
+        private int nbrCaseLibre; 
 
 
         private Labyrinthe()
@@ -44,16 +47,37 @@ namespace LabyrinthFight
         {
             StreamReader monStreamReader = new StreamReader(@fichierTxt);
             string ligne = monStreamReader.ReadLine();
-            int position = 1; 
+            int position = 1;
+            int nbrColonne=0;
+            int nbrLigne=0;
+            int nbrLibre=0; 
 
             while (ligne != null)
             {
                 string[] temp = ligne.Split(';');
+                nbrColonne = temp.Length; 
 
+                for (int i = 0; i < nbrColonne; i++ )
+                {
+                    listCase.Add(this.caseFactory.CreatCase(temp[i], position + i)); 
+                    if (listCase[i] is Libre)
+                    {
+                        nbrLibre += 1; 
+                    }
+                }
+                position += nbrColonne;
+
+                ligne = monStreamReader.ReadLine();
+                nbrLigne += 1; 
             }
+            monStreamReader.Close();
+
+            this.nbrColonne = nbrColonne;
+            this.nbrLigne = nbrLigne;
+            this.nbrCaseLibre = nbrLibre; 
         }
 
-
+        
     }
 
 
