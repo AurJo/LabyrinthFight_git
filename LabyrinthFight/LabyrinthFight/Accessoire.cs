@@ -9,6 +9,8 @@ namespace LabyrinthFight
     public abstract class Accessoire : Occupant
     {
         protected int capacite;
-        protected ConsoleColor color; 
+        protected ConsoleColor color;
+
+        public ConsoleColor Color { get => color; set => color = value; }
     }
 }

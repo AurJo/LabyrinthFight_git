@@ -19,11 +19,7 @@ namespace LabyrinthFight
 
         public override string ToString()
         {
-            if (this.occupant == null)
-            {
-                return " "; 
-            }
-            else
+            if (this.occupant != null)
             {
                 if (occupant is Combattant)
                 {
@@ -31,9 +27,13 @@ namespace LabyrinthFight
                 }
                 if (occupant is Accessoire)
                 {
-                    //return (occupant as Accessoire).
+                    Console.BackgroundColor = (occupant as Accessoire).Color;
                 }
-                
+                return " ";
+            }
+            else
+            {
+                return " "; 
             }
         }
     }
