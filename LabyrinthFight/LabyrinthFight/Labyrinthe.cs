@@ -15,7 +15,8 @@ namespace LabyrinthFight
         static object instanceLock = new object();
         private int nbrColonne;
         private int nbrLigne;
-        private int nbrCaseLibre; 
+        private int nbrCaseLibre;
+        private List<int> listPositionLibre; 
 
 
         private Labyrinthe()
@@ -62,7 +63,8 @@ namespace LabyrinthFight
                     listCase.Add(this.caseFactory.CreatCase(temp[i], position + i)); 
                     if (listCase[i] is Libre)
                     {
-                        nbrLibre += 1; 
+                        nbrLibre += 1;
+                        listPositionLibre.Add(position + i); 
                     }
                 }
                 position += nbrColonne;
