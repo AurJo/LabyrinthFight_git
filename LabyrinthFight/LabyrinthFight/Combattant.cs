@@ -26,6 +26,7 @@ namespace LabyrinthFight
             this.caractere = this.caractereFactory.CreateCaractere();
             this.queueVisite = new Queue<Case>();
             this.nonPossible = new Queue<Case>();
+            this.listAccessoire = new List<Accessoire>();
         }
     }
 }

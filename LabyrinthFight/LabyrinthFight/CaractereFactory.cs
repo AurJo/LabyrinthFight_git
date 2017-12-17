@@ -15,8 +15,9 @@ namespace LabyrinthFight
             int aleatoire = rand.Next(0,2);
             if(aleatoire == 0)
                 return new Offensif();
-            else
+            if (aleatoire == 1)
                 return new Defensif();
+            return null;
         }
     }
 }
