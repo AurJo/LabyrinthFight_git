@@ -14,7 +14,10 @@ namespace LabyrinthFight
         private AccessoireFactory accessoireFactory;
         private CombattantFactory combattantFactory;
 
-
+        public Game()
+        {
+            
+        }
 
     }
 }
