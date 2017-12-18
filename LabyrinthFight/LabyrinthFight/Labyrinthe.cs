@@ -49,6 +49,9 @@ namespace LabyrinthFight
         public int NbrCaseLibre { get => nbrCaseLibre; set => nbrCaseLibre = value; }
         public List<Case> ListCase { get => listCase; set => listCase = value; }
         public Sortie Sortie { get => sortie; set => sortie = value; }
+        public int NbrColonne { get => nbrColonne; set => nbrColonne = value; }
+        public int NbrLigne { get => nbrLigne; set => nbrLigne = value; }
+        public List<Case> ListPositionLibre { get => listPositionLibre; set => listPositionLibre = value; }
 
         public void GenerationLabyrinthe(string fichierTxt)
         {

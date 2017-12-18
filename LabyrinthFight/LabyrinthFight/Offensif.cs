@@ -8,5 +8,10 @@ namespace LabyrinthFight
 {
     public class Offensif : Caractere
     {
+
+        public override string ToString()
+        {
+            return "Offensif";
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace LabyrinthFight
         private CombattantFactory combattantFactory;
 
         public Labyrinthe Labyrinthe { get => labyrinthe; set => labyrinthe = value; }
+        public List<Combattant> ListCombattant { get => listCombattant; set => listCombattant = value; }
+        public List<Accessoire> ListAccessoire { get => listAccessoire; set => listAccessoire = value; }
 
         public Game()
         {
@@ -24,17 +26,17 @@ namespace LabyrinthFight
             this.accessoireFactory = new AccessoireFactory();
             this.combattantFactory = new CombattantFactory();
         }
-        
+
 
         public void AjouterCombattant(string nom, int vie, int capacite, int typeCaractere)
         {
             this.listCombattant.Add(this.combattantFactory.CreateCombattant(nom, vie, capacite, typeCaractere));
         }
-        
+
         public void GenerationCombattant()
         {
             int pourcentageCombattant = Convert.ToInt32(Console.ReadLine());
-            int nombreCombattant = this.labyrinthe.NbrCaseLibre / pourcentageCombattant + 1 ;
+            int nombreCombattant = this.labyrinthe.NbrCaseLibre / pourcentageCombattant + 1;
             int vie = Convert.ToInt32(Console.ReadLine());
             int capacite = Convert.ToInt32(Console.ReadLine());
 
@@ -63,6 +65,33 @@ namespace LabyrinthFight
             {
                 int capacite = rand.Next(1, 11);
                 AjouterAccessoire(capacite);
+            }
+        }
+
+
+
+        public void AfficherGame()
+        {
+            Console.Clear();
+            this.labyrinthe.AfficherLabyrinthe();
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            for (int i = 0; i < this.listCombattant.Count; i++)
+            {
+                if (this.listCombattant[i].Vie == 0)
+                {
+                    Console.SetCursorPosition(labyrinthe.NbrColonne * 2, i + 5);
+                    Console.Write("Mort = {0} : Vie : {1}, Capacite : {2}, Caractere : {3}", this.listCombattant[i], this.listCombattant[i].Vie, this.listCombattant[i].Capacite, this.listCombattant[i].Caractere);
+
+                }
+                Console.SetCursorPosition(labyrinthe.NbrColonne * 2, i + 5);
+                Console.Write("{0} : Vie : {1}, Capacite : {2}, Caractere : {3}", this.listCombattant[i], this.listCombattant[i].Vie, this.listCombattant[i].Capacite, this.listCombattant[i].Caractere);
+            }
+
+            for (int i = 0; i < this.listAccessoire.Count; i++)
+            {
+                Console.SetCursorPosition(labyrinthe.NbrColonne * 2, i + 15);
+                Console.Write("{0} : Capacite : {1}", this.listAccessoire[i], this.listAccessoire[i].Capacite);
             }
         }
     }

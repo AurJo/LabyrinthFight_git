@@ -41,6 +41,7 @@ namespace LabyrinthFight
 
         public void CalculeCapacite()
         {
+            this.capacite = 10;
             for (int i = 0; i < this.listAccessoire.Count; i++)
             {
                 this.capacite += this.listAccessoire[i].Capacite;
@@ -102,6 +103,7 @@ namespace LabyrinthFight
             {
                 adversaireAttaque.Vie -= this.capacite;
                 listAccessoire.Last().Capacite--;
+                CalculeCapacite();
                 return true;
             }
             catch
@@ -124,7 +126,7 @@ namespace LabyrinthFight
             {
                 if ((pos as Libre).Occupant == null)
                 {
-                    if (nonPossible.Contains(pos) == false)
+                    if (nonPossible.Contains(pos) == false &&  visite.Contains(pos) == false)
                     {
                         if(visite.Count > 0 && pos != visite.First())
                             return Bouge(pos);
@@ -141,7 +143,7 @@ namespace LabyrinthFight
                 }
                 if ((pos as Libre).Occupant is Accessoire)
                 {
-                    if (nonPossible.Contains(pos))
+                    if (nonPossible.Contains(pos) == false && visite.Contains(pos))
                     {
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
@@ -200,9 +202,10 @@ namespace LabyrinthFight
             while (this.vie > 0 && (this.caseActuel is Sortie) == false)
             {
                 ChoixPossibilite();
-                Console.Clear();
+                Thread.Sleep(500);
+                /*Console.Clear();
                 Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
-                Console.ReadKey();
+                Console.ReadKey();*/
             }
             if (this.vie <= 0)
             {
