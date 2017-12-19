@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabyrinthFight
 {
-    public class Game
+    public class Game : ICombattant
     {
         private static Game gameInstance;
         private static object gameInstanceLock = new object();
@@ -20,6 +20,7 @@ namespace LabyrinthFight
         private int capaciteCombattant;
         private int nombreArrive;
         private int vieBase;
+        private Voix voix;
 
         public Labyrinthe Labyrinthe { get => labyrinthe; set => labyrinthe = value; }
         public List<Combattant> ListCombattant { get => listCombattant; set => listCombattant = value; }
@@ -181,6 +182,11 @@ namespace LabyrinthFight
                     Console.Write("{0} ( {1} ) : Capacite : {2}", this.listAccessoire[i], this.listAccessoire[i].CapaciteBase, this.listAccessoire[i].Capacite);
                 }
             }
+        }
+
+        public void Update()
+        {
+            PlacementAccessoire();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabyrinthFight
 {
-    public class Combattant : Occupant
+    public class Combattant : Occupant, ICombattant
     {
         string nom;
         private List<Accessoire> listAccessoire;
@@ -256,6 +256,11 @@ namespace LabyrinthFight
             return nom;
         }
 
+        
 
+        public void Update()
+        {
+            this.listAccessoire = null;
+        }
     }
 }
