@@ -10,6 +10,7 @@ namespace LabyrinthFight
     {
         public Bombe()
         {
+            this.capaciteBase = 10;
             this.capacite = 10;
             this.color = ConsoleColor.Magenta; 
         }

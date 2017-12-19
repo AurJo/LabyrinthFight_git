@@ -10,6 +10,7 @@ namespace LabyrinthFight
     {
         public Mitraillette()
         {
+            this.capaciteBase = 8;
             this.capacite = 8;
             this.color = ConsoleColor.Green; 
         }

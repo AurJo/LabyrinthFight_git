@@ -10,6 +10,7 @@ namespace LabyrinthFight
     {
         public Couteau()
         {
+            this.capaciteBase = 3;
             this.capacite = 3;
             this.color = ConsoleColor.DarkGreen; 
         }

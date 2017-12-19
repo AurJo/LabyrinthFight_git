@@ -23,7 +23,7 @@ namespace LabyrinthFight
 
         static void Test2()
         {
-            Game game = new Game();
+            Game game = Game.GameInstance;
 
             game.Labyrinthe.GenerationLabyrinthe("laby.txt");
 
@@ -48,7 +48,7 @@ namespace LabyrinthFight
 
         static void Test3()
         {
-            Game game = new Game();
+            Game game = Game.GameInstance;
 
             game.Labyrinthe.GenerationLabyrinthe("laby.txt");
 
@@ -82,15 +82,17 @@ namespace LabyrinthFight
 
         static void Test4()
         {
-            Game game = new Game();
+            Game game = Game.GameInstance;
+            Game.GameInstance.SpeedCombattant = 200;
+            Game.GameInstance.CapaciteCombattant = 10;
 
-            game.Labyrinthe.GenerationLabyrinthe("laby.txt");
+            game.Labyrinthe.GenerationLabyrinthe("laby2.txt");
 
             game.AfficherGame();
             Console.ReadKey();
 
-            game.AjouterCombattant("A", 100, 10, 0);
-            game.AjouterCombattant("B", 100, 10, 0);
+            game.AjouterCombattant("A", 100, 10, 1);
+            game.AjouterCombattant("B", 100, 10, 1);
 
             for (int i = 0; i < game.ListCombattant.Count; i++)
             {
@@ -114,12 +116,30 @@ namespace LabyrinthFight
                 Thread thCombattant = new Thread(game.ListCombattant[i].ParcourirLabyrinthe);
                 thCombattant.Start();
             }
+            game.AfficherGame();
+        }
 
-            while (game.Labyrinthe.Sortie.Occupant == null)
-            {
-                game.AfficherGame();
-                Thread.Sleep(100);
-            }
+        static void Test5()
+        {
+            Game game = Game.GameInstance;
+            game.InitialisationGame(500, 100, 10);
+
+            game.Labyrinthe.GenerationLabyrinthe("laby.txt");
+
+            game.AfficherGame();
+            Console.ReadKey();
+
+            game.GenerationCombattant(0.02);
+            game.GenerationAccessoire(0.07);
+
+            game.PlacementCombattant();
+            game.PlacementAccessoire();
+
+            game.AfficherGame();
+            Console.ReadKey();
+
+            game.LancementCombattant();
+            
             game.AfficherGame();
         }
 
@@ -128,7 +148,8 @@ namespace LabyrinthFight
             //Test1();
             //Test2();
             //Test3();
-            Test4();
+            //Test4();
+            Test5();
 
             Console.ReadKey();
         }

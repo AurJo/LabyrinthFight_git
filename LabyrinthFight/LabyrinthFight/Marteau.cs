@@ -10,6 +10,7 @@ namespace LabyrinthFight
     {
         public Marteau()
         {
+            this.capaciteBase = 2;
             this.capacite = 2;
             this.color = ConsoleColor.DarkCyan; 
         }

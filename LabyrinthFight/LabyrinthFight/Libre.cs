@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace LabyrinthFight
 {
-    public class Libre : Case 
+    public class Libre : Case
     {
         private Occupant occupant;
+        private static object afficheLock = new object();
 
         public Libre(int position)
         {
@@ -19,22 +20,24 @@ namespace LabyrinthFight
 
         public override string ToString()
         {
-            if (this.occupant != null)
+            lock (afficheLock)
             {
-                if (occupant is Combattant)
+                if (this.occupant != null)
                 {
-                    Console.BackgroundColor = ConsoleColor.Red; 
-                    return (occupant as Combattant).Nom;  
+                    if (occupant is Combattant)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        return (occupant as Combattant).Nom;
+                    }
+                    if (occupant is Accessoire)
+                    {
+                        Console.ForegroundColor = (occupant as Accessoire).Color;
+                        return "o";
+                    }
                 }
-                if (occupant is Accessoire)
-                {
-                    Console.ForegroundColor = (occupant as Accessoire).Color;
-                    return "o" ; 
-                }
-            }
 
-            return " "; 
-            
+                return " ";
+            }
         }
     }
 

@@ -12,7 +12,7 @@ namespace LabyrinthFight
         private static Labyrinthe labyrintheInstance;
         private CaseFactory caseFactory;
         private List<Case> listCase;
-        static object instanceLock = new object();
+        static object labyrintheInstanceLock = new object();
         private int nbrColonne;
         private int nbrLigne;
         private int nbrCaseLibre;
@@ -34,7 +34,7 @@ namespace LabyrinthFight
             {
                 if (labyrintheInstance == null)
                 {
-                    lock (instanceLock)
+                    lock (labyrintheInstanceLock)
                     {
                         if (labyrintheInstance == null)
                         {

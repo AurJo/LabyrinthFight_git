@@ -10,6 +10,7 @@ namespace LabyrinthFight
     {
         public Epee()
         {
+            this.capaciteBase = 5;
             this.capacite = 5;
             this.color = ConsoleColor.DarkMagenta; 
         }

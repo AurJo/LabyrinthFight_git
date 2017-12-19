@@ -11,6 +11,7 @@ namespace LabyrinthFight
         public Arc()
         {
             this.capacite = 6;
+            this.capaciteBase = 6;
             this.color = ConsoleColor.Blue; 
         }
     }

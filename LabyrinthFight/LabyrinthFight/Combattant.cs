@@ -18,6 +18,10 @@ namespace LabyrinthFight
         private Stack<Case> visite;
         private List<Case> nonPossible;
         private Case caseActuel;
+        private int positionArrive;
+        private static object vieLock = new object();
+        private static object arriveLock = new object();
+        private static object bougerLock = new object();
 
         public Combattant(string nom, int vie, int capacite, int typeCaractere)
         {
@@ -37,14 +41,26 @@ namespace LabyrinthFight
         public string Nom { get => nom; set => nom = value; }
         public int Vie { get => vie; set => vie = value; }
         public int Capacite { get => capacite; set => capacite = value; }
-
+        public int PositionArrive { get => positionArrive; set => positionArrive = value; }
 
         public void CalculeCapacite()
         {
-            this.capacite = 10;
+            this.capacite = Game.GameInstance.CapaciteCombattant;
             for (int i = 0; i < this.listAccessoire.Count; i++)
             {
                 this.capacite += this.listAccessoire[i].Capacite;
+            }
+        }
+
+        public void ChangerCaractere()
+        {
+            if (this.capacite <= Game.GameInstance.CapaciteCombattant || this.vie <= Game.GameInstance.VieBase / 2)
+            {
+                this.caractere = this.caractereFactory.CreateCaractere(1);
+            }
+            else
+            {
+                this.caractere = this.caractereFactory.CreateCaractere(0);
             }
         }
 
@@ -53,6 +69,7 @@ namespace LabyrinthFight
             this.listAccessoire.Add((caseAccessoire as Libre).Occupant as Accessoire);
             (caseAccessoire as Libre).Occupant = null;
             CalculeCapacite();
+            ChangerCaractere();
         }
 
         public bool Bouge(Case caseProchaine)
@@ -85,7 +102,6 @@ namespace LabyrinthFight
         {
             try
             {
-                visite.Pop();
                 (this.caseActuel as Libre).Occupant = null;
                 this.caseActuel = pos;
                 (this.caseActuel as Libre).Occupant = this;
@@ -101,9 +117,13 @@ namespace LabyrinthFight
         {
             try
             {
-                adversaireAttaque.Vie -= this.capacite;
-                listAccessoire.Last().Capacite--;
-                CalculeCapacite();
+                lock (vieLock)
+                {
+                    adversaireAttaque.Vie -= this.capacite;
+                    listAccessoire.Last().DiminuerCapacite();
+                    CalculeCapacite();
+                    ChangerCaractere();
+                }
                 return true;
             }
             catch
@@ -124,21 +144,18 @@ namespace LabyrinthFight
         {
             if (pos is Libre)
             {
-                if ((pos as Libre).Occupant == null)
-                {
-                    if (nonPossible.Contains(pos) == false &&  visite.Contains(pos) == false)
-                    {
-                        if(visite.Count > 0 && pos != visite.First())
-                            return Bouge(pos);
-                        if (visite.Count == 0)
-                            return Bouge(pos);
-                    }
-                }
                 if ((pos as Libre).Occupant is Combattant)
                 {
                     if (this.caractere is Offensif) // && ((pos as Libre).Occupant as Combattant).caractere is Offensif)
                     {
                         return Combat((pos as Libre).Occupant as Combattant);
+                    }
+                    if (this.caractere is Defensif)
+                    {
+                        if (visite != null && visite.Count != 0)
+                            return RetourArriere(visite.Pop());
+                        else
+                            return Bouge(pos);
                     }
                 }
                 if ((pos as Libre).Occupant is Accessoire)
@@ -148,15 +165,17 @@ namespace LabyrinthFight
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
                         {
+                            RecupereAccessoire(pos);
                             return Bouge(pos);
                         }
                     }
-                    if (visite.Count > 0 && pos == visite.First())
+                    if (visite.Count > 0 && visite.Contains(pos))
                     {
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
                         {
-                            return RetourArriere(pos);
+                            RecupereAccessoire(pos);
+                            return Bouge(pos);
                         }
                     }
                     else
@@ -165,9 +184,24 @@ namespace LabyrinthFight
                         return Bouge(pos);
                     }
                 }
+                if ((pos as Libre).Occupant == null)
+                {
+                    if (nonPossible.Contains(pos) == false && visite.Contains(pos) == false)
+                    {
+                        if (visite.Count > 0 && pos != visite.First())
+                            return Bouge(pos);
+                        if (visite.Count == 0)
+                            return Bouge(pos);
+                    }
+                }
             }
             if (pos is Sortie)
             {
+                lock (arriveLock)
+                {
+                    Game.GameInstance.NombreArrive++;
+                    this.positionArrive = Game.GameInstance.NombreArrive;
+                }
                 return Bouge(pos);
             }
             return false;
@@ -192,7 +226,9 @@ namespace LabyrinthFight
             if (bouger == false)
             {
                 nonPossible.Add(caseActuel);
-                bouger = RetourArriere(visite.First());
+                if (visite != null)
+                    bouger = RetourArriere(visite.Pop());
+                bouger = false;
             }
             return bouger;
         }
@@ -201,11 +237,12 @@ namespace LabyrinthFight
         {
             while (this.vie > 0 && (this.caseActuel is Sortie) == false)
             {
-                ChoixPossibilite();
-                Thread.Sleep(500);
-                /*Console.Clear();
-                Labyrinthe.LabyrintheInstance.AfficherLabyrinthe();
-                Console.ReadKey();*/
+                lock (bougerLock)
+                {
+                    ChoixPossibilite();
+                }
+                Game.GameInstance.AfficherGame();
+                Thread.Sleep(Game.GameInstance.SpeedCombattant);
             }
             if (this.vie <= 0)
             {
