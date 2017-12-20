@@ -53,7 +53,7 @@ namespace LabyrinthFight
 
         public void ChangerCaractere()
         {
-            if (this.capacite <= Game.GameInstance.CapaciteCombattant || this.vie <= Game.GameInstance.VieBase / 2)
+            if (this.capacite <= Game.GameInstance.CapaciteCombattant || this.vie <= Game.GameInstance.VieBase / 10)
             {
                 this.caractere = this.caractereFactory.CreateCaractere(1);
             }
