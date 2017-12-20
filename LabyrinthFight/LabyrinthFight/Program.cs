@@ -122,7 +122,7 @@ namespace LabyrinthFight
         static void Test5()
         {
             Game game = Game.GameInstance;
-            game.InitialisationGame(500, 100, 10);
+            game.InitialisationGame(500, 100, 10,30000);
 
             game.Labyrinthe.GenerationLabyrinthe("laby.txt");
 
@@ -131,6 +131,65 @@ namespace LabyrinthFight
 
             game.GenerationCombattant(0.02);
             game.GenerationAccessoire(0.07);
+            game.AjoutCombattantVoix();
+
+            game.PlacementCombattant();
+            game.PlacementAccessoire();
+
+            game.AfficherGame();
+            Console.ReadKey();
+            Thread thVoix = new Thread(game.Voix.SuppressionAccessoire);
+
+            game.LancementCombattant();
+            thVoix.Start();
+            
+            
+            game.AfficherGame();
+        }
+
+
+        static void ProgrammePrincipal()
+        {
+            Game game = Game.GameInstance;
+
+            Console.WriteLine("Vitesse des combattants : ");
+            int speed = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Vie des combattants : ");
+            int vie = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Capacité des combattants : ");
+            int capacite = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Délai de la voix : ");
+            int delaiVoix = Convert.ToInt32(Console.ReadLine());
+
+            game.InitialisationGame(speed, vie, capacite, delaiVoix);
+
+            Console.WriteLine("Choisir le labyrinthe : 1 ou 2");
+            int typeLaby = Convert.ToInt32(Console.ReadLine());
+
+            string txtLaby;
+
+            if (typeLaby == 1)
+                txtLaby = "laby.txt";
+            else
+                txtLaby = "laby2.txt";
+
+            game.Labyrinthe.GenerationLabyrinthe(txtLaby);
+
+            game.AfficherGame();
+            Console.ReadKey();
+            Console.WriteLine("Nombre de case libre : " + game.Labyrinthe.NbrCaseLibre); 
+            Console.WriteLine("Pourcentage de combattant sur case libre : ");
+            double pourcentageCombattant = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Pourcentage d'accessoire sur case libre : ");
+            double pourcentageAccessoire = Convert.ToInt32(Console.ReadLine());
+
+            game.GenerationCombattant(pourcentageCombattant/100);
+            game.GenerationAccessoire(pourcentageAccessoire/100);
+            game.AjoutCombattantVoix();
 
             game.PlacementCombattant();
             game.PlacementAccessoire();
@@ -138,8 +197,12 @@ namespace LabyrinthFight
             game.AfficherGame();
             Console.ReadKey();
 
+            Thread thVoix = new Thread(game.Voix.SuppressionAccessoire);
+
             game.LancementCombattant();
-            
+            thVoix.Start();
+
+
             game.AfficherGame();
         }
 
@@ -149,8 +212,8 @@ namespace LabyrinthFight
             //Test2();
             //Test3();
             //Test4();
-            Test5();
-
+            //Test5();
+            ProgrammePrincipal();
             Console.ReadKey();
         }
     }

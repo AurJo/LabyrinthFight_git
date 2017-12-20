@@ -37,7 +37,6 @@ namespace LabyrinthFight
 
         public Case CaseActuel { get => caseActuel; set => caseActuel = value; }
         public Caractere Caractere { get => caractere; set => caractere = value; }
-
         public string Nom { get => nom; set => nom = value; }
         public int Vie { get => vie; set => vie = value; }
         public int Capacite { get => capacite; set => capacite = value; }
@@ -255,12 +254,12 @@ namespace LabyrinthFight
         {
             return nom;
         }
-
         
-
         public void Update()
         {
-            this.listAccessoire = null;
+            this.listAccessoire = new List<Accessoire>();
+            CalculeCapacite();
+            ChangerCaractere();
         }
     }
 }

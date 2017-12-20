@@ -10,7 +10,6 @@ namespace LabyrinthFight
     public class Voix
     {
         private List<ICombattant> listeCombattant;
-        private Game game;
         private int delaiSuppression;
 
         public Voix()
@@ -21,11 +20,6 @@ namespace LabyrinthFight
         public void InitialisationVoix(int delaiSuppression)
         {
             this.delaiSuppression = delaiSuppression;
-        }
-
-        public void AttachGame(Game game)
-        {
-            this.game = game;
         }
 
         public void Attach(ICombattant combattant)
@@ -56,7 +50,8 @@ namespace LabyrinthFight
         {
             while(Game.GameInstance.NombreArrive != Game.GameInstance.ListCombattant.Count)
             {
-                Thread.Sleep(delaiSuppression)
+                Thread.Sleep(delaiSuppression);
+                this.Notify();
             }
         }
     }

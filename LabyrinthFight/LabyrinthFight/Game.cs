@@ -29,6 +29,7 @@ namespace LabyrinthFight
         public int CapaciteCombattant { get => capaciteCombattant; set => capaciteCombattant = value; }
         public int NombreArrive { get => nombreArrive; set => nombreArrive = value; }
         public int VieBase { get => vieBase; set => vieBase = value; }
+        public Voix Voix { get => voix; set => voix = value; }
 
         private Game()
         {
@@ -37,6 +38,7 @@ namespace LabyrinthFight
             this.listCombattant = new List<Combattant>();
             this.accessoireFactory = new AccessoireFactory();
             this.combattantFactory = new CombattantFactory();
+            this.voix = new Voix();
             this.nombreArrive = 0;
         }
 
@@ -61,11 +63,13 @@ namespace LabyrinthFight
             }
         }
 
-        public void InitialisationGame(int speedCombattant, int vieBase, int capaciteCombattant)
+
+        public void InitialisationGame(int speedCombattant, int vieBase, int capaciteCombattant,int delaiSupression)
         {
             this.speedCombattant = speedCombattant;
             this.vieBase = vieBase;
             this.capaciteCombattant = capaciteCombattant;
+            this.voix.InitialisationVoix(delaiSupression);
         }
 
         public void AjouterCombattant(string nom, int vie, int capacite, int typeCaractere)
@@ -83,6 +87,15 @@ namespace LabyrinthFight
             {
                 AjouterCombattant(Convert.ToString(Convert.ToChar(i + 65)), this.vieBase, this.capaciteCombattant, 1);
             }
+        }
+
+        public void AjoutCombattantVoix()
+        {
+            for(int i = 0; i < this.listCombattant.Count; i++)
+            {
+                this.voix.Attach(this.listCombattant[i]);
+            }
+            this.voix.Attach(this);
         }
 
         public void AjouterAccessoire(int capacite)
@@ -137,6 +150,17 @@ namespace LabyrinthFight
             }
         }
 
+        public void EnleverAccessoire()
+        {
+            for(int i = 0; i < this.labyrinthe.ListPositionLibre.Count; i++)
+            {
+                if((this.labyrinthe.ListPositionLibre[i] as Libre).Occupant is Accessoire)
+                {
+                    (this.labyrinthe.ListPositionLibre[i] as Libre).Occupant = null;
+                }
+            }
+        }
+
         public void LancementCombattant()
         {
             for (int i = 0; i < listCombattant.Count; i++)
@@ -186,6 +210,7 @@ namespace LabyrinthFight
 
         public void Update()
         {
+            EnleverAccessoire();
             PlacementAccessoire();
         }
     }
