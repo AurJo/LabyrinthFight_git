@@ -75,21 +75,25 @@ namespace LabyrinthFight
         {
             try
             {
-                if (caseProchaine is Libre)
+                lock (bougerLock)
                 {
-                    this.visite.Push(this.caseActuel);
-                    (this.caseActuel as Libre).Occupant = null;
-                    this.caseActuel = caseProchaine;
-                    (this.caseActuel as Libre).Occupant = this;
-                }
-                if (caseProchaine is Sortie)
-                {
-                    this.visite.Push(this.caseActuel);
-                    (this.caseActuel as Libre).Occupant = null;
-                    this.caseActuel = caseProchaine;
-                    (this.caseActuel as Sortie).Occupant = this;
+                    if (caseProchaine is Libre)
+                    {
+                        this.visite.Push(this.caseActuel);
+                        (this.caseActuel as Libre).Occupant = null;
+                        this.caseActuel = caseProchaine;
+                        (this.caseActuel as Libre).Occupant = this;
+                    }
+                    if (caseProchaine is Sortie)
+                    {
+                        this.visite.Push(this.caseActuel);
+                        (this.caseActuel as Libre).Occupant = null;
+                        this.caseActuel = caseProchaine;
+                        (this.caseActuel as Sortie).Occupant = this;
+                    }
                 }
                 return true;
+
             }
             catch
             {
@@ -151,24 +155,15 @@ namespace LabyrinthFight
                     }
                     if (this.caractere is Defensif)
                     {
-                        if (visite != null && visite.Count != 0)
+                        if (visite.Count != 0)
                             return RetourArriere(visite.Pop());
                         else
-                            return Bouge(pos);
+                            return false;
                     }
                 }
                 if ((pos as Libre).Occupant is Accessoire)
                 {
-                    if (nonPossible.Contains(pos) == false && visite.Contains(pos))
-                    {
-                        // Strategie de déplacement sur une case sans possibilités
-                        if (StrategieDeplacement())
-                        {
-                            RecupereAccessoire(pos);
-                            return Bouge(pos);
-                        }
-                    }
-                    if (visite.Count > 0 && visite.Contains(pos))
+                    if ((nonPossible.Count > 0 && nonPossible.Contains(pos) == true) || (visite.Count > 0 && visite.Contains(pos)))
                     {
                         // Strategie de déplacement sur une case sans possibilités
                         if (StrategieDeplacement())
@@ -187,10 +182,7 @@ namespace LabyrinthFight
                 {
                     if (nonPossible.Contains(pos) == false && visite.Contains(pos) == false)
                     {
-                        if (visite.Count > 0 && pos != visite.First())
-                            return Bouge(pos);
-                        if (visite.Count == 0)
-                            return Bouge(pos);
+                        return Bouge(pos);
                     }
                 }
             }
@@ -225,7 +217,7 @@ namespace LabyrinthFight
             if (bouger == false)
             {
                 nonPossible.Add(caseActuel);
-                if (visite != null)
+                if (visite != null && visite.Count > 0)
                     bouger = RetourArriere(visite.Pop());
                 bouger = false;
             }
@@ -254,7 +246,7 @@ namespace LabyrinthFight
         {
             return nom;
         }
-        
+
         public void Update()
         {
             this.listAccessoire = new List<Accessoire>();

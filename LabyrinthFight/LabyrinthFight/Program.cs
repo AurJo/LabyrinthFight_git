@@ -10,6 +10,7 @@ namespace LabyrinthFight
     class Program
     {
 
+        #region Test
         static void Test1()
         {
             Labyrinthe labyrinthe = Labyrinthe.LabyrintheInstance;
@@ -129,8 +130,8 @@ namespace LabyrinthFight
             game.AfficherGame();
             Console.ReadKey();
 
-            game.GenerationCombattant(0.02);
-            game.GenerationAccessoire(0.07);
+            game.GenerationCombattant(2);
+            game.GenerationAccessoire(7);
             game.AjoutCombattantVoix();
 
             game.PlacementCombattant();
@@ -146,6 +147,7 @@ namespace LabyrinthFight
             
             game.AfficherGame();
         }
+#endregion
 
 
         static void ProgrammePrincipal()
@@ -181,14 +183,14 @@ namespace LabyrinthFight
             game.AfficherGame();
             Console.ReadKey();
             Console.WriteLine("Nombre de case libre : " + game.Labyrinthe.NbrCaseLibre); 
-            Console.WriteLine("Pourcentage de combattant sur case libre : ");
-            double pourcentageCombattant = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Nombre de combattant sur case libre : ");
+            int nombreCombattant = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Pourcentage d'accessoire sur case libre : ");
-            double pourcentageAccessoire = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Nombre d'accessoire sur case libre : ");
+            int nombreAccessoire = Convert.ToInt32(Console.ReadLine());
 
-            game.GenerationCombattant(pourcentageCombattant/100);
-            game.GenerationAccessoire(pourcentageAccessoire/100);
+            game.GenerationCombattant(nombreCombattant);
+            game.GenerationAccessoire(nombreAccessoire);
             game.AjoutCombattantVoix();
 
             game.PlacementCombattant();

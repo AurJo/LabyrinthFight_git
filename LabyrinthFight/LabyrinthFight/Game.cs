@@ -77,10 +77,8 @@ namespace LabyrinthFight
             this.listCombattant.Add(this.combattantFactory.CreateCombattant(nom, vie, capacite, typeCaractere));
         }
 
-        public void GenerationCombattant(double pourcentageCombattant)
+        public void GenerationCombattant(int nombreCombattant)
         {
-            int nombreCombattant = Convert.ToInt32(this.labyrinthe.NbrCaseLibre * pourcentageCombattant + 1);
-
             Random rand = new Random();
 
             for (int i = 0; i < nombreCombattant; i++)
@@ -103,10 +101,8 @@ namespace LabyrinthFight
             this.listAccessoire.Add(this.accessoireFactory.CreateAccessoire(capacite));
         }
 
-        public void GenerationAccessoire(double pourcentageAccessoire)
+        public void GenerationAccessoire(int nombreAccessoire)
         {
-            int nombreAccessoire = Convert.ToInt32(this.labyrinthe.NbrCaseLibre * pourcentageAccessoire + 1);
-
             Random rand = new Random();
 
             for (int i = 0; i < nombreAccessoire; i++)
